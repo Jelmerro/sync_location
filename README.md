@@ -6,6 +6,7 @@ sync\_location
 The sync location tool will read the syncthing configuration for the current machine,
 and expose the locations based on the syncthing folder name.
 In addition to the syncthing folders, a folder named "downloads" is also exposed.
+This will scan for mounted disks in "/mnt/" to use as the base location of the downloads.
 For most operating systems and configurations this will simply be `~/Downloads`.
 
 ## Installation

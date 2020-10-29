@@ -24,27 +24,27 @@ if os.path.isfile(config_file):
             folders[folder] += "/"
         globals()[folder] = folders[folder]
 
-# The download folder is located on the last mounted disk,
-# and will be created on that disk if there is no Downloads folder yet.
-# For Windows, this will usually just return the user Downloads folder.
-disks = [
-    "/mnt/HDD2/Downloads/",
-    "/mnt/HDD/Downloads/",
-    os.path.expanduser("~/Downloads/")
-]
-for folder in disks:
-    if os.path.isdir(folder.replace("Downloads/", "")):
-        if not os.path.isdir(folder):
-            os.makedirs(folder)
-        folders["downloads"] = folder
+# The download folder is created for the first location found:
+# - Mounted disk in reverse-alphabetical order (so HDD2 before HDD etc.)
+# - Main user folder
+# For most setups, this will usually just return the user Downloads folder.
+disks = []
+if os.path.isdir("/mnt/"):
+    disks = [f"/mnt/{f}" for f in os.listdir("/mnt/")]
+    disks = sorted([d for d in disks if os.path.isdir(d)], reverse=True)
+disks.append("~")
+for disk in disks:
+    if os.path.isdir(disk):
+        folders["downloads"] = os.path.join(disk, "Downloads/")
         break
 if "downloads" in folders:
+    os.makedirs(folders["downloads"], exist_ok=True)
     globals()["downloads"] = folders["downloads"]
 globals()["all"] = folders
 
 
 # This short section provides basic command line usability, for example:
-# `sync_location start` will print the location of that folder and exit.
+# `sync_location default` will print the location of the default sync folder.
 def main():
     if len(sys.argv) > 1:
         if sys.argv[1] in folders:

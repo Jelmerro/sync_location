@@ -19,6 +19,8 @@ if os.path.isfile(config_file):
         folder = configured_folder.attributes["label"].value
         if not folder:
             folder = configured_folder.attributes["id"].value
+        if not folder:
+            continue
         folders[folder] = configured_folder.attributes["path"].value
         if not folders[folder].endswith("/"):
             folders[folder] += "/"

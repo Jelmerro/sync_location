@@ -34,14 +34,16 @@ disks = []
 if os.path.isdir("/mnt/"):
     disks = [f"/mnt/{f}" for f in os.listdir("/mnt/")]
     disks = sorted([d for d in disks if os.path.isdir(d)], reverse=True)
-disks.append("~")
+disks.append(os.path.expanduser("~"))
 for disk in disks:
     if os.path.isdir(disk):
-        folders["downloads"] = os.path.join(disk, "Downloads/")
-        break
-if "downloads" in folders:
-    os.makedirs(folders["downloads"], exist_ok=True)
-    globals()["downloads"] = folders["downloads"]
+        downloads = os.path.join(disk, "Downloads/")
+        try:
+            os.makedirs(downloads, exist_ok=True)
+        except PermissionError:
+            continue
+        folders["downloads"] = downloads
+        globals()["downloads"] = downloads
 globals()["all"] = folders
 
 

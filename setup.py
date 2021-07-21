@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="sync_location",
-    version="1.1.1",
+    version="1.1.2",
     author="Jelmer van Arnhem",
     description="Read, parse and expose syncthing folder locations by name",
     license="MIT",

@@ -44,6 +44,7 @@ for disk in disks:
             continue
         folders["downloads"] = downloads
         globals()["downloads"] = downloads
+        break
 globals()["all"] = folders
 
 

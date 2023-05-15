@@ -26,17 +26,19 @@ if os.path.isfile(config_file):
             folders[folder] += "/"
         globals()[folder] = folders[folder]
 
-# The download folder is created for the first location found:
+# The download folder is a special entry located at the first of these:
+# - A syncthing folder named 'downloads', path is returned as is
 # - Mounted disk in reverse-alphabetical order (so HDD2 before HDD etc.)
-# - Main user folder
-# For most setups, this will usually just return the user Downloads folder.
+# - Main user folder: ~/Downloads/
+# For most setups, this will usually just return the user Downloads folder,
+# or the syncthing folder downloads, if it exists, which is returned as is.
 disks = []
 if os.path.isdir("/mnt/"):
     disks = [f"/mnt/{f}" for f in os.listdir("/mnt/")]
     disks = sorted([d for d in disks if os.path.isdir(d)], reverse=True)
 disks.append(os.path.expanduser("~"))
 for disk in disks:
-    if os.path.isdir(disk):
+    if "downloads" not in folders and os.path.isdir(disk):
         downloads = os.path.join(disk, "Downloads/")
         try:
             os.makedirs(downloads, exist_ok=True)
@@ -44,7 +46,6 @@ for disk in disks:
             continue
         folders["downloads"] = downloads
         globals()["downloads"] = downloads
-        break
 globals()["all"] = folders
 
 

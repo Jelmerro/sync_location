@@ -1,0 +1,11 @@
+[project]
+name="sync_location"
+version="1.2.0"
+authors=[{name="Jelmer van Arnhem"}]
+description="Read, parse and expose syncthing folder locations by name"
+license={text="MIT"}
+requires-python=">=3.6"
+[tool.setuptools]
+include-package-data=true
+[project.scripts]
+sync_location="sync_location:main"

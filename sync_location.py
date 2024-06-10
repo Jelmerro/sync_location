@@ -52,9 +52,13 @@ globals()["all"] = folders
 # This short section provides basic command line usability, for example:
 # `sync_location default` will print the location of the default sync folder.
 def main():
-    if len(sys.argv) > 1:
+    if len(sys.argv) == 2:
         if sys.argv[1] in folders:
             print(folders[sys.argv[1]])
+            sys.exit(0)
+    elif len(sys.argv) == 3:
+        if sys.argv[1] in folders:
+            print(os.path.join(folders[sys.argv[1]], sys.argv[2]))
             sys.exit(0)
     sys.exit(1)
 

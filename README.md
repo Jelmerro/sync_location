@@ -48,6 +48,8 @@ To find a location for a folder based on its name from the command line,
 it's possible to run the script with a single argument that represents the folder name.
 If the folder exists, the location will be returned and the program will exit with status 0.
 For missing folders, no output is printed and the program exists with status code 1.
+Optionally, a second argument can be presented that is appended to the base path,
+this one is not checked for existence though, only the syncthing folder name is.
 
 ```bash
 sync_location default
@@ -55,6 +57,9 @@ sync_location default
 
 sync_location downloads
 # /home/user/Downloads/
+
+sync_location downloads subfolder/fileorfolder
+# /home/user/Downloads/subfolder/fileorfolder
 ```
 
 ## License

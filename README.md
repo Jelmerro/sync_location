@@ -16,8 +16,7 @@ If there is a `downloads` folder in the syncthing config, that will be used inst
 ## Installation
 
 ```bash
-git clone https://github.com/Jelmerro/sync_location.git
-pip3 install --user --upgrade ./sync_location
+pip install --user -I git+https://github.com/Jelmerro/sync_location
 ```
 
 ## Import as a module

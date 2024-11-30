@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import json
 import os
 import platform
 import sys
@@ -52,7 +53,10 @@ globals()["all"] = folders
 # This short section provides basic command line usability, for example:
 # `sync_location default` will print the location of the default sync folder.
 def main():
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 1:
+        print(json.dumps(folders, indent=4))
+        sys.exit(0)
+    elif len(sys.argv) == 2:
         if sys.argv[1] in folders:
             print(folders[sys.argv[1]])
             sys.exit(0)

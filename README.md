@@ -49,6 +49,7 @@ If the folder exists, the location will be returned and the program will exit wi
 For missing folders, no output is printed and the program exists with status code 1.
 Optionally, a second argument can be presented that is appended to the base path,
 this one is not checked for existence though, only the syncthing folder name is.
+Without arguments, JSON is used to show all folders, similar to the module's `.all`.
 
 ```bash
 sync_location default
@@ -59,6 +60,12 @@ sync_location downloads
 
 sync_location downloads subfolder/fileorfolder
 # /home/user/Downloads/subfolder/fileorfolder
+
+sync_location
+# {
+#     "default": "/home/user/Sync/",
+#     "downloads": "/home/user/Downloads/"
+# }
 ```
 
 ## License

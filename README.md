@@ -50,6 +50,7 @@ For missing folders, no output is printed and the program exists with status cod
 Optionally, a second argument can be presented that is appended to the base path,
 this one is not checked for existence though, only the syncthing folder name is.
 Without arguments, JSON is used to show all folders, similar to the module's `.all`.
+Finally, you can list all configured folder names using the `--folders` argument.
 
 ```bash
 sync_location default
@@ -66,6 +67,10 @@ sync_location
 #     "default": "/home/user/Sync/",
 #     "downloads": "/home/user/Downloads/"
 # }
+
+sync_location --folders
+# default
+# downloads
 ```
 
 ## License

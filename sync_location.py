@@ -57,7 +57,10 @@ def main():
         print(json.dumps(folders, indent=4))
         sys.exit(0)
     elif len(sys.argv) == 2:
-        if sys.argv[1] in folders:
+        if sys.argv[1] == "--folders":
+            print("\n".join(folders.keys()))
+            sys.exit(0)
+        elif sys.argv[1] in folders:
             print(folders[sys.argv[1]])
             sys.exit(0)
     elif len(sys.argv) == 3:

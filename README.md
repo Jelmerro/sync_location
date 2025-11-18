@@ -1,7 +1,9 @@
 sync\_location
 ==============
 
-#### Read, parse and expose syncthing folder locations by name
+Read, parse and expose syncthing folder locations by name
+
+## Features
 
 The sync location tool will read the syncthing configuration for the current machine,
 and expose the locations based on the syncthing folder name.
@@ -13,13 +15,52 @@ This will scan for mounted disks in "/mnt/" to use as the base location of the d
 or use the user folder as the main fallback location at `~/Downloads`.
 If there is a `downloads` folder in the syncthing config, that will be used instead.
 
-## Installation
+## Install
+
+### Module
+
+You can add it to your setup.py or pyproject.toml file as a dependency using:
+
+`sync_location @ git+https://git@github.com/Jelmerro/sync_location@master`
+
+### Pip
 
 ```bash
 pip install --user -I git+https://github.com/Jelmerro/sync_location
 ```
 
-## Import as a module
+### Python
+
+Download or clone the repo, then run `python sync_location.py` directly.
+
+### [Github](https://github.com/Jelmerro/sync_location/releases)
+
+Download a stable installer or executable for your platform from Github.
+
+### [Fedora](https://jelmerro.nl/fedora)
+
+I host a custom Fedora repository that you can use for automatic updates.
+
+```bash
+sudo dnf config-manager addrepo --from-repofile=https://jelmerro.nl/fedora/jelmerro.repo
+sudo dnf install sync_location
+```
+
+## Contribute
+
+You can support my work on [ko-fi](https://ko-fi.com/Jelmerro) or [Github sponsors](https://github.com/sponsors/Jelmerro).
+Another way to help is to report issues or suggest new features.
+Please try to follow recommendations by flake8 and pylint when developing.
+For an example vimrc that can auto-format based on the included linters,
+you can check out my personal [vimrc](https://github.com/Jelmerro/vimrc).
+
+## Building
+
+To create your own builds you can use [jfpm](https://github.com/Jelmerro/jfpm).
+Please clone or download both this repo and jfpm, then run `../jfpm/release_py_simple.sh`.
+This will build releases for various platforms and output them to `dist`.
+
+## Usage as a module
 
 The package exposes the syncthing folders as a single dictionary named "all".
 Its keys are based on the folder names, and the values are set to the folder locations.
@@ -41,7 +82,7 @@ if "default" in sync_location.all:
     # /home/user/Sync/
 ```
 
-## Command-line
+## Usage from the Command-line
 
 To find a location for a folder based on its name from the command line,
 it's possible to run the script with a single argument that represents the folder name.
@@ -72,8 +113,3 @@ sync_location --folders
 # default
 # downloads
 ```
-
-## License
-
-The sync location tool is created by [Jelmer van Arnhem](https://github.com/Jelmerro)
-and may be copied and modified under the terms of the [MIT license](./LICENSE).

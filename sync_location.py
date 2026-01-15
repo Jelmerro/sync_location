@@ -43,7 +43,7 @@ for disk in disks:
         downloads = os.path.join(disk, "Downloads/")
         try:
             os.makedirs(downloads, exist_ok=True)
-        except PermissionError:
+        except (PermissionError, OSError):
             continue
         folders["downloads"] = downloads
         globals()["downloads"] = downloads

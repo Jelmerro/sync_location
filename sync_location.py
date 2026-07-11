@@ -4,6 +4,7 @@ import os
 import platform
 import sys
 from xml.dom import minidom
+from xml.parsers.expat import ExpatError
 
 # Read the syncthing config to locate the folders.
 # Only folders synced on the current device will be available as globals.
@@ -15,17 +16,20 @@ if platform.system().lower() == "windows":
     config_file = "~/AppData/Local/Syncthing/config.xml"
 config_file = os.path.expanduser(config_file)
 if os.path.isfile(config_file):
-    config_xml = minidom.parse(config_file)
-    for configured_folder in config_xml.getElementsByTagName("folder"):
-        folder = configured_folder.attributes["label"].value
-        if not folder:
-            folder = configured_folder.attributes["id"].value
-        if not folder:
-            continue
-        folders[folder] = configured_folder.attributes["path"].value
-        if not folders[folder].endswith("/"):
-            folders[folder] += "/"
-        globals()[folder] = folders[folder]
+    try:
+        config_xml = minidom.parse(config_file)
+        for configured_folder in config_xml.getElementsByTagName("folder"):
+            folder = configured_folder.attributes["label"].value
+            if not folder:
+                folder = configured_folder.attributes["id"].value
+            if not folder:
+                continue
+            folders[folder] = configured_folder.attributes["path"].value
+            if not folders[folder].endswith("/"):
+                folders[folder] += "/"
+            globals()[folder] = folders[folder]
+    except ExpatError:
+        pass
 
 # The download folder is a special entry located at the first of these:
 # - A syncthing folder named 'downloads', path is returned as is

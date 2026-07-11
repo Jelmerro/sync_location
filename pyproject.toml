@@ -1,6 +1,6 @@
 [project]
 name="sync_location"
-version="1.5.1"
+version="1.5.2"
 authors=[{name="Jelmer van Arnhem"}]
 description="Read, parse and expose syncthing folder locations by name"
 license={text="MIT"}
